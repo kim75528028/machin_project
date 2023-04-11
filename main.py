@@ -55,3 +55,12 @@ lr = LinearRegression()
 lr.fit(train_input, train_target)
 print(lr.score(train_input, train_target))
 print(lr.score(test_input, test_target))
+
+print('\n')
+
+#다중 회귀 (코스피)
+X = pd.concat([pd.DataFrame(kp_scaled), pd.DataFrame(nd_scaled), pd.DataFrame(ts_scaled)], axis=1)
+train_input, test_input, train_target, test_target = train_test_split(X, kp_scaled, test_size=0.3, random_state=42)
+lr.fit(train_input, train_target)
+print(lr.score(train_input, train_target))
+print(lr.score(test_input, test_target))
