@@ -64,7 +64,7 @@ print('\n코스피 & 나스닥 릿지')
 #코스피 & 나스닥 릿지
 train_input, test_input, train_target, test_target = train_test_split(kp_scaled, nd_scaled, test_size=0.3, random_state=42)
 
-rd = Ridge()
+rd = Ridge(alpha=1)
 rd.fit(train_input, train_target)
 print(rd.score(train_input, train_target))
 print(rd.score(test_input, test_target))
@@ -74,7 +74,7 @@ print('\n코스피 & 환율 릿지')
 #코스피 & 환율 릿지
 train_input, test_input, train_target, test_target = train_test_split(kp_scaled, ex_scaled, test_size=0.3, random_state=42)
 
-rd = Ridge()
+rd = Ridge(alpha=1)
 rd.fit(train_input, train_target)
 print(rd.score(train_input, train_target))
 print(rd.score(test_input, test_target))
@@ -84,7 +84,7 @@ print('\n나스닥 & 환율 릿지')
 #나스닥 & 환율 릿지
 train_input, test_input, train_target, test_target = train_test_split(nd_scaled, ex_scaled, test_size=0.3, random_state=42)
 
-rd = Ridge()
+rd = Ridge(alpha=1)
 rd.fit(train_input, train_target)
 print(rd.score(train_input, train_target))
 print(rd.score(test_input, test_target))
@@ -92,30 +92,30 @@ print(rd.score(test_input, test_target))
 from sklearn.linear_model import Lasso
 print('\n코스피 & 나스닥 라쏘')
 
-#코스피 & 나스닥 릿지
+#코스피 & 나스닥 라쏘
 train_input, test_input, train_target, test_target = train_test_split(kp_scaled, nd_scaled, test_size=0.3, random_state=42)
 
-ls = Lasso()
+ls = Lasso(alpha=0.01)
 ls.fit(train_input, train_target)
 print(ls.score(train_input, train_target))
 print(ls.score(test_input, test_target))
 
 print('\n코스피 & 환율 라쏘')
 
-#코스피 & 나스닥 릿지
+#코스피 & 환율 라쏘
 train_input, test_input, train_target, test_target = train_test_split(kp_scaled, ex_scaled, test_size=0.3, random_state=42)
 
-ls = Lasso()
+ls = Lasso(alpha=0.01)
 ls.fit(train_input, train_target)
 print(ls.score(train_input, train_target))
 print(ls.score(test_input, test_target))
 
 print('\n나스닥 & 환율 라쏘')
 
-#코스피 & 나스닥 릿지
+#나스닥 & 환율 라쏘
 train_input, test_input, train_target, test_target = train_test_split(nd_scaled, ex_scaled, test_size=0.3, random_state=42)
 
-ls = Lasso()
+ls = Lasso(alpha=0.01)
 ls.fit(train_input, train_target)
 print(ls.score(train_input, train_target))
 print(ls.score(test_input, test_target))
