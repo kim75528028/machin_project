@@ -5,7 +5,7 @@ from sklearn.model_selection import train_test_split
 
 kp = pd.read_csv('kospi.csv')
 nd = pd.read_csv('nasdaq.csv')
-ts = pd.read_excel('trans.xlsx')
+ex = pd.read_excel('trans.xlsx')
 
 
 #코스피 정규화
@@ -21,10 +21,10 @@ nd_std = np.std(nd, axis=0)
 nd_scaled = (nd - nd_mean)/nd_std
 
 #환율 정규화
-ts_mean = np.mean(ts, axis=0)
-ts_std = np.std(ts, axis=0)
+ex_mean = np.mean(ex, axis=0)
+ex_std = np.std(ex, axis=0)
 
-ts_scaled = (ts - ts_mean)/ts_std
+ex_scaled = (ex - ex_mean)/ex_std
 
 from sklearn.linear_model import LinearRegression
 
@@ -40,7 +40,7 @@ print(lr.score(test_input, test_target))
 print('\n코스피 & 환율 선형 회귀')
 
 #코스피 & 환율 선형 회귀
-train_input, test_input, train_target, test_target = train_test_split(kp_scaled, ts_scaled, test_size=0.3, random_state=42)
+train_input, test_input, train_target, test_target = train_test_split(kp_scaled, ex_scaled, test_size=0.3, random_state=42)
 
 lr = LinearRegression()
 lr.fit(train_input, train_target)
@@ -50,7 +50,7 @@ print(lr.score(test_input, test_target))
 print('\n나스닥 & 환율 선형 회귀')
 
 #나스닥 & 환율 선형 회귀
-train_input, test_input, train_target, test_target = train_test_split(nd_scaled, ts_scaled, test_size=0.3, random_state=42)
+train_input, test_input, train_target, test_target = train_test_split(nd_scaled, ex_scaled, test_size=0.3, random_state=42)
 
 lr = LinearRegression()
 lr.fit(train_input, train_target)
@@ -72,7 +72,7 @@ print(rd.score(test_input, test_target))
 print('\n코스피 & 환율 릿지')
 
 #코스피 & 환율 릿지
-train_input, test_input, train_target, test_target = train_test_split(kp_scaled, ts_scaled, test_size=0.3, random_state=42)
+train_input, test_input, train_target, test_target = train_test_split(kp_scaled, ex_scaled, test_size=0.3, random_state=42)
 
 rd = Ridge()
 rd.fit(train_input, train_target)
@@ -82,7 +82,7 @@ print(rd.score(test_input, test_target))
 print('\n나스닥 & 환율 릿지')
 
 #나스닥 & 환율 릿지
-train_input, test_input, train_target, test_target = train_test_split(nd_scaled, ts_scaled, test_size=0.3, random_state=42)
+train_input, test_input, train_target, test_target = train_test_split(nd_scaled, ex_scaled, test_size=0.3, random_state=42)
 
 rd = Ridge()
 rd.fit(train_input, train_target)
@@ -103,7 +103,7 @@ print(ls.score(test_input, test_target))
 print('\n코스피 & 환율 라쏘')
 
 #코스피 & 나스닥 릿지
-train_input, test_input, train_target, test_target = train_test_split(kp_scaled, ts_scaled, test_size=0.3, random_state=42)
+train_input, test_input, train_target, test_target = train_test_split(kp_scaled, ex_scaled, test_size=0.3, random_state=42)
 
 ls = Lasso()
 ls.fit(train_input, train_target)
@@ -113,7 +113,7 @@ print(ls.score(test_input, test_target))
 print('\n나스닥 & 환율 라쏘')
 
 #코스피 & 나스닥 릿지
-train_input, test_input, train_target, test_target = train_test_split(nd_scaled, ts_scaled, test_size=0.3, random_state=42)
+train_input, test_input, train_target, test_target = train_test_split(nd_scaled, ex_scaled, test_size=0.3, random_state=42)
 
 ls = Lasso()
 ls.fit(train_input, train_target)
