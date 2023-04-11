@@ -6,7 +6,6 @@ from sklearn.model_selection import train_test_split
 kp = pd.read_csv('kospi.csv')
 nd = pd.read_csv('nasdaq.csv')
 ts = pd.read_excel('trans.xlsx')
-date = np.array([i for i in range(3062)])
 
 
 #코스피 정규화
