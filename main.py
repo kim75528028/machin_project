@@ -28,7 +28,7 @@ ts_std = np.std(ts, axis=0)
 ts_scaled = (ts - ts_mean)/ts_std
 
 from sklearn.linear_model import LinearRegression
-print('코스피 & 나스닥 선형 회귀')
+
 #코스피 & 나스닥 선형 회귀
 train_input, test_input, train_target, test_target = train_test_split(kp_scaled, nd_scaled, test_size=0.3, random_state=42)
 
@@ -37,7 +37,7 @@ lr.fit(train_input, train_target)
 print(lr.score(train_input, train_target))
 print(lr.score(test_input, test_target))
 
-print('\n코스피 & 환율 선형 회귀')
+print('\n')
 
 #코스피 & 환율 선형 회귀
 train_input, test_input, train_target, test_target = train_test_split(kp_scaled, ts_scaled, test_size=0.3, random_state=42)
@@ -47,7 +47,7 @@ lr.fit(train_input, train_target)
 print(lr.score(train_input, train_target))
 print(lr.score(test_input, test_target))
 
-print('\n나스닥 & 환율 선형 회귀')
+print('\n')
 
 #나스닥 & 환율 선형 회귀
 train_input, test_input, train_target, test_target = train_test_split(nd_scaled, ts_scaled, test_size=0.3, random_state=42)
@@ -57,68 +57,13 @@ lr.fit(train_input, train_target)
 print(lr.score(train_input, train_target))
 print(lr.score(test_input, test_target))
 
-print('\n코스닥 & 나스닥 릿지')
+print('\n')
 
-from sklearn.linear_model import Ridge
-#코스닥 & 나스닥 릿지
-train_input, test_input, train_target, test_target = train_test_split(kp_scaled, nd_scaled, test_size=0.3, random_state=42)
+#다중 회귀 (kospi)
+X = pd.concat([pd.DataFrame(kp_scaled), pd.DataFrame(nd_scaled), pd.DataFrame(ts_scaled)], axis=1)
+y = kp_scaled
 
-rd = Ridge()
-rd.fit(train_input, train_target)
-print(rd.score(train_input, train_target))
-print(rd.score(test_input, test_target))
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
 
-print('\n코스피 & 환율 릿지')
-
-#코스피 & 환율 릿지
-train_input, test_input, train_target, test_target = train_test_split(kp_scaled, ts_scaled, test_size=0.3, random_state=42)
-
-rd = Ridge()
-rd.fit(train_input, train_target)
-print(rd.score(train_input, train_target))
-print(rd.score(test_input, test_target))
-
-
-print('\n나스닥 & 환율 릿지')
-
-#나스닥 & 환율 릿지
-
-train_input, test_input, train_target, test_target = train_test_split(nd_scaled, ts_scaled, test_size=0.3, random_state=42)
-
-rd = Ridge()
-rd.fit(train_input, train_target)
-print(rd.score(train_input, train_target))
-print(rd.score(test_input, test_target))
-
-from sklearn.linear_model import Lasso
-
-print('\n코스닥 & 나스닥 라쏘')
-
-#코스닥 & 나스닥 라쏘
-train_input, test_input, train_target, test_target = train_test_split(kp_scaled, nd_scaled, test_size=0.3, random_state=42)
-
-ls = Lasso()
-ls.fit(train_input, train_target)
-print(ls.score(train_input, train_target))
-print(ls.score(test_input, test_target))
-
-print('\n코스피 & 환율 라쏘')
-
-#코스피 & 환율 라쏘
-train_input, test_input, train_target, test_target = train_test_split(kp_scaled, ts_scaled, test_size=0.3, random_state=42)
-
-ls = Lasso()
-ls.fit(train_input, train_target)
-print(ls.score(train_input, train_target))
-print(ls.score(test_input, test_target))
-
-print('\n나스닥 & 환율 라쏘')
-
-#나스닥 & 환율 라쏘
-
-train_input, test_input, train_target, test_target = train_test_split(nd_scaled, ts_scaled, test_size=0.3, random_state=42)
-
-ls = Lasso()
-ls.fit(train_input, train_target)
-print(ls.score(train_input, train_target))
-print(ls.score(test_input, test_target))
+lr.fit(X_train, y_train)
+print(lr.score(X_test, y_test))
